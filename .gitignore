@@ -26,3 +26,6 @@ yarn-error.log*
 # LOCKS
 package-lock.json
 yarn.lock
+
+# DATABASE
+postgres-data

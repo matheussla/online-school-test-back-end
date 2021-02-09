@@ -9,8 +9,8 @@ questionsRouter.post('/', questionsController.create)
 
 questionsRouter.get('/', questionsController.getAll)
 
-//questionsRouter.put('/', questionsController.create)
+questionsRouter.put('/', questionsController.update)
 
-//questionsRouter.delete('/', questionsController.getAll)
+questionsRouter.delete('/', questionsController.delete)
 
 export default questionsRouter

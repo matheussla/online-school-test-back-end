@@ -20,4 +20,24 @@ export default class QuestionsController {
 
     return response.json(result)
   }
+
+  public async update (request: Request, response: Response): Promise<Response> {
+    const questionsService = new QuestionsService()
+    const { body } = request;
+    const { id } = request.params 
+
+
+    const result = await questionsService.update(id, body)
+
+    return response.json(result)
+  }
+
+  public async delete (request: Request, response: Response): Promise<Response> {
+    const questionsService = new QuestionsService()
+    const { id } = request.params 
+
+    const result = await questionsService.delete(id)
+
+    return response.json(result)
+  }
 }

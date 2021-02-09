@@ -4,13 +4,12 @@ import ExamsRepository from './repository'
 import { getCustomRepository } from 'typeorm'
 
 class ExamsService {
-  private readonly examsRepository = getCustomRepository(ExamsRepository)
-
   public async create (data: ExamDTO): Promise<Exam | {}> {
     try {
-      const result = this.examsRepository.create(data)
+      const examsRepository = getCustomRepository(ExamsRepository)
+      const result = examsRepository.create(data)
 
-      await this.examsRepository.save(result)
+      await examsRepository.save(result)
 
       return result
     } catch (error) {
@@ -24,7 +23,24 @@ class ExamsService {
   public async getAll (): Promise<Exam | {}> {
     try {
       const examsRepository = getCustomRepository(ExamsRepository)
-      const result = await examsRepository.find()
+      const result = await examsRepository
+       .createQueryBuilder("exams")
+       .leftJoinAndSelect("exams.questions", "questions.exam_id")
+       .getMany()
+ 
+      return result
+    } catch (error) {
+      return {
+        statusError: '500',
+        errorMessage: error.message
+      }
+    }
+  }
+
+  public async update (id: string, data: ExamDTO): Promise<Exam | {}> {
+    try {
+      const examsRepository = getCustomRepository(ExamsRepository)
+      const result = examsRepository.update(id, data)
 
       return result
     } catch (error) {
@@ -35,35 +51,17 @@ class ExamsService {
     }
   }
 
-  public update (data: ExamDTO): Exam | {} {
+  public async delete (id: string): Promise<Exam | {}> {
     try {
-      const result = this.examsRepository.create(data)
+      const examsRepository = getCustomRepository(ExamsRepository)
+      
+      const verifyId = await examsRepository.findOne(id)
 
-      return result
-    } catch (error) {
-      return {
-        statusError: '500',
-        errorMessage: error.message
+      if (!verifyId) {
+        throw new Error('Not Found id')
       }
-    }
-  }
-
-  public patch (data: ExamDTO): Exam | {} {
-    try {
-      const result = this.examsRepository.create(data)
-
-      return result
-    } catch (error) {
-      return {
-        statusError: '500',
-        errorMessage: error.message
-      }
-    }
-  }
-
-  public delete (data: ExamDTO): Exam | {} {
-    try {
-      const result = this.examsRepository.create(data)
+      
+      const result = await examsRepository.delete(id)
 
       return result
     } catch (error) {

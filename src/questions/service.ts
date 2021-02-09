@@ -1,16 +1,41 @@
 import Question from '../models/question'
 import QuestionDTO from './interface'
 import QuestionsRepository from './repository'
+import ExamsRepository from '../exams/repository'
 import { getCustomRepository } from 'typeorm'
 
 class QuestionsService {
-  private readonly questionsRepository = getCustomRepository(QuestionsRepository)
-
   public async create (data: QuestionDTO): Promise<Question | {}> {
     try {
-      const result = this.questionsRepository.create(data)
+      const questionsRepository = getCustomRepository(QuestionsRepository)
+      const examsRepository = getCustomRepository(ExamsRepository)
+      
+      const verifyExam = await examsRepository.findOne(data.exam_id)
 
-      await this.questionsRepository.save(result)
+      if(!verifyExam){
+        throw new Error("Not Found exam_id");
+      }
+      
+      const result = questionsRepository.create(data)
+      
+      return result
+    } catch (error) {
+      return {
+        statusError: '500',
+        errorMessage: error.message
+      }
+    }
+  }
+
+  public async getAll (): Promise<Question | {}> {
+    try {
+      const questionsRepository = getCustomRepository(QuestionsRepository)
+      let result = await questionsRepository
+      .createQueryBuilder("questions")
+      .leftJoinAndSelect("questions.options", "options.question_id")
+      .getMany()
+      
+      result = result.sort(() => Math.random() - 0.5)
 
       return result
     } catch (error) {
@@ -21,9 +46,10 @@ class QuestionsService {
     }
   }
 
-  public getAll (): Question | {} {
+  public async update (id: string , data: QuestionDTO): Promise<Question | {}> {
     try {
-      const result = this.questionsRepository.create()
+      const questionsRepository = getCustomRepository(QuestionsRepository)
+      const result = await questionsRepository.update(id, data)
 
       return result
     } catch (error) {
@@ -34,35 +60,10 @@ class QuestionsService {
     }
   }
 
-  public update (data: QuestionDTO): Question | {} {
+  public delete (id: string): Question | {} {
     try {
-      const result = this.questionsRepository.create(data)
-
-      return result
-    } catch (error) {
-      return {
-        statusError: '500',
-        errorMessage: error.message
-      }
-    }
-  }
-
-  public patch (data: QuestionDTO): Question | {} {
-    try {
-      const result = this.questionsRepository.create(data)
-
-      return result
-    } catch (error) {
-      return {
-        statusError: '500',
-        errorMessage: error.message
-      }
-    }
-  }
-
-  public delete (data: QuestionDTO): Question | {} {
-    try {
-      const result = this.questionsRepository.create(data)
+      const questionsRepository = getCustomRepository(QuestionsRepository)
+      const result = questionsRepository.delete(id)
 
       return result
     } catch (error) {

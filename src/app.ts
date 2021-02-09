@@ -15,4 +15,12 @@ app.use(bodyParser.json())
 
 app.use('/', routes)
 
+// app.use((error: Error, response: Response): response => {
+
+//   return response
+//     .status(500)
+//     .json({ status: 'error', message: 'Internal server error' });
+// });
+
+
 export default app

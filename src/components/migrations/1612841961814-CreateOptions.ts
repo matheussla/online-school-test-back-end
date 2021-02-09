@@ -34,7 +34,7 @@ export class CreateOptions1612841961814 implements MigrationInterface {
     )
 
     await queryRunner.createForeignKey(
-      'questions',
+      'options',
       new TableForeignKey({
         name: 'OptionsInQuestion',
         columnNames: ['question_id'],

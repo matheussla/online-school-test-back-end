@@ -20,4 +20,23 @@ export default class ExamsController {
 
     return response.json(result)
   }
+
+  public async update (request: Request, response: Response): Promise<Response> {
+    const examsService = new ExamsService()
+    const { body } = request
+    const { id } = request.params 
+
+    const result = await examsService.update(id, body)
+
+    return response.json(result)
+  }
+
+  public async delete (request: Request, response: Response): Promise<Response> {
+    const examsService = new ExamsService()
+    const { id } = request.params 
+
+    const result = await examsService.delete(id)
+
+    return response.json(result)
+  }
 }

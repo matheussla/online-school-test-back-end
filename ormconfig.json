@@ -2,7 +2,12 @@
   "type": "postgres",
   "host": "localhost",
   "port": 5432,
-  "username": "user",
+  "username": "postgres",
   "password": "pass",
-  "database": "school_test"
+  "database": "school_test",
+  "entities": ["./src/models/*.ts"],
+  "migrations": ["./src/components/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/components/migrations"
+  }
 }

@@ -1,17 +1,16 @@
-import Exams from './entity'
-import ExamsDTO from './interface'
+import Exam from '../models/exam'
+import ExamDTO from './interface'
 import ExamsRepository from './repository'
+import { getCustomRepository } from 'typeorm'
 
 class ExamsService {
-  private readonly examRepository: ExamsRepository
+  private readonly examsRepository = getCustomRepository(ExamsRepository)
 
-  constructor (examRepository: ExamsRepository) {
-    this.examRepository = examRepository
-  }
-
-  public create (data: ExamsDTO): Exams | {} {
+  public async create (data: ExamDTO): Promise<Exam | {}> {
     try {
-      const result = this.examRepository.create(data)
+      const result = this.examsRepository.create(data)
+
+      await this.examsRepository.save(result)
 
       return result
     } catch (error) {
@@ -22,9 +21,10 @@ class ExamsService {
     }
   }
 
-  public getAll (data: ExamsDTO): Exams | {} {
+  public async getAll (): Promise<Exam | {}> {
     try {
-      const result = this.examRepository.create(data)
+      const examsRepository = getCustomRepository(ExamsRepository)
+      const result = await examsRepository.find()
 
       return result
     } catch (error) {
@@ -35,9 +35,9 @@ class ExamsService {
     }
   }
 
-  public update (data: ExamsDTO): Exams | {} {
+  public update (data: ExamDTO): Exam | {} {
     try {
-      const result = this.examRepository.create(data)
+      const result = this.examsRepository.create(data)
 
       return result
     } catch (error) {
@@ -48,9 +48,9 @@ class ExamsService {
     }
   }
 
-  public patch (data: ExamsDTO): Exams | {} {
+  public patch (data: ExamDTO): Exam | {} {
     try {
-      const result = this.examRepository.create(data)
+      const result = this.examsRepository.create(data)
 
       return result
     } catch (error) {
@@ -61,9 +61,9 @@ class ExamsService {
     }
   }
 
-  public delete (data: ExamsDTO): Exams | {} {
+  public delete (data: ExamDTO): Exam | {} {
     try {
-      const result = this.examRepository.create(data)
+      const result = this.examsRepository.create(data)
 
       return result
     } catch (error) {

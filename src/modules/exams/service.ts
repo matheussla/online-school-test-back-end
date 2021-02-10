@@ -1,4 +1,4 @@
-import Exam from '../models/exam'
+import Exam from '../../models/exam'
 import ExamDTO from './interface'
 import ExamsRepository from './repository'
 import { getCustomRepository } from 'typeorm'
@@ -24,10 +24,10 @@ class ExamsService {
     try {
       const examsRepository = getCustomRepository(ExamsRepository)
       const result = await examsRepository
-       .createQueryBuilder("exams")
-       .leftJoinAndSelect("exams.questions", "questions.exam_id")
-       .getMany()
- 
+        .createQueryBuilder('exams')
+        .leftJoinAndSelect('exams.questions', 'questions.exam_id')
+        .getMany()
+
       return result
     } catch (error) {
       return {
@@ -54,13 +54,13 @@ class ExamsService {
   public async delete (id: string): Promise<Exam | {}> {
     try {
       const examsRepository = getCustomRepository(ExamsRepository)
-      
+
       const verifyId = await examsRepository.findOne(id)
 
       if (!verifyId) {
         throw new Error('Not Found id')
       }
-      
+
       const result = await examsRepository.delete(id)
 
       return result

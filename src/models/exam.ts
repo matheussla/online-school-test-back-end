@@ -1,5 +1,5 @@
 import Question from './question'
-import ExamType from '../exams/enum'
+import ExamType from '../modules/exams/enum'
 import {
   Entity, Column, PrimaryGeneratedColumn,
   CreateDateColumn, UpdateDateColumn, OneToMany
@@ -17,7 +17,7 @@ class Exam {
   description: string
 
   @Column({
-    type: "enum",
+    type: 'enum',
     enum: ExamType,
     default: ExamType.ONLINE
   })

@@ -1,4 +1,4 @@
-import Options from '../models/option'
+import Options from '../../models/option'
 
 export default interface QuestionDTO {
   exam_id: string

@@ -1,4 +1,4 @@
-import Questions from '../models/question'
+import Questions from '../../models/question'
 import ExamType from './enum'
 
 export default interface ExamDTO {

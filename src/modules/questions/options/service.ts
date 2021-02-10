@@ -1,4 +1,4 @@
-import Option from '../../models/option'
+import Option from '../../../models/option'
 import OptionDTO from './interface'
 import QuestionsRepository from '../../questions/repository'
 import OptionsRepository from './repository'

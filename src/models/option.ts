@@ -1,8 +1,9 @@
 import Question from './question'
-import { Entity, Column,
-   PrimaryGeneratedColumn, ManyToOne,
-   JoinColumn 
-  } from 'typeorm'
+import {
+  Entity, Column,
+  PrimaryGeneratedColumn, ManyToOne,
+  JoinColumn
+} from 'typeorm'
 
 @Entity('options')
 class Option {

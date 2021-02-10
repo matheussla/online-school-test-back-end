@@ -1,4 +1,4 @@
-import Option from '../../models/option'
+import Option from '../../../models/option'
 import { EntityRepository, Repository } from 'typeorm'
 
 @EntityRepository(Option)

@@ -23,9 +23,8 @@ export default class QuestionsController {
 
   public async update (request: Request, response: Response): Promise<Response> {
     const questionsService = new QuestionsService()
-    const { body } = request;
-    const { id } = request.params 
-
+    const { body } = request
+    const { id } = request.params
 
     const result = await questionsService.update(id, body)
 
@@ -34,7 +33,7 @@ export default class QuestionsController {
 
   public async delete (request: Request, response: Response): Promise<Response> {
     const questionsService = new QuestionsService()
-    const { id } = request.params 
+    const { id } = request.params
 
     const result = await questionsService.delete(id)
 

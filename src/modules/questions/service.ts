@@ -1,4 +1,4 @@
-import Question from '../models/question'
+import Question from '../../models/question'
 import QuestionDTO from './interface'
 import QuestionsRepository from './repository'
 import ExamsRepository from '../exams/repository'
@@ -9,15 +9,15 @@ class QuestionsService {
     try {
       const questionsRepository = getCustomRepository(QuestionsRepository)
       const examsRepository = getCustomRepository(ExamsRepository)
-      
+
       const verifyExam = await examsRepository.findOne(data.exam_id)
 
-      if(!verifyExam){
-        throw new Error("Not Found exam_id");
+      if (!verifyExam) {
+        throw new Error('Not Found exam_id')
       }
-      
+
       const result = questionsRepository.create(data)
-      
+
       return result
     } catch (error) {
       return {
@@ -31,10 +31,10 @@ class QuestionsService {
     try {
       const questionsRepository = getCustomRepository(QuestionsRepository)
       let result = await questionsRepository
-      .createQueryBuilder("questions")
-      .leftJoinAndSelect("questions.options", "options.question_id")
-      .getMany()
-      
+        .createQueryBuilder('questions')
+        .leftJoinAndSelect('questions.options', 'options.question_id')
+        .getMany()
+
       result = result.sort(() => Math.random() - 0.5)
 
       return result

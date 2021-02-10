@@ -1,4 +1,4 @@
-import Exam from '../models/exam'
+import Exam from '../../models/exam'
 import { EntityRepository, Repository } from 'typeorm'
 
 @EntityRepository(Exam)

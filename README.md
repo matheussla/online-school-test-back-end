@@ -19,7 +19,7 @@
 
  - Options
 
-## Funcionalidades:
+## Functionalities:
 
  - Create Exams, Questions and Options
 

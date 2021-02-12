@@ -34,7 +34,7 @@ export default {
         tags: [
           'exams'
         ],
-        summary: 'Add a new exams to the questions',
+        summary: 'Add a new exams',
         description: '',
         consumes: [
           'application/json',
@@ -48,7 +48,6 @@ export default {
           {
             in: 'body',
             name: 'body',
-            description: 'Pet object that needs to be added to the questions',
             required: true,
             schema: {
               $ref: '#/definitions/Exams'
@@ -64,13 +63,36 @@ export default {
           }
         ]
       },
+      get: {
+        tags: [
+          'exams'
+        ],
+        summary: 'Get an existing exams',
+        description: '',
+        consumes: [
+          'application/json',
+          'application/xml'
+        ],
+        produces: [
+          'application/xml',
+          'application/json'
+        ],
+        security: [
+          {
+            examsquestions_auth: [
+              'write:examss',
+              'read:examss'
+            ]
+          }
+        ]
+      }
+    },
+    '/exams/:id': {
       put: {
         tags: [
           'exams'
         ],
-        summary: 'Update an existing exams',
         description: '',
-        operationId: 'updatePet',
         consumes: [
           'application/json',
           'application/xml'
@@ -94,9 +116,8 @@ export default {
         tags: [
           'exams'
         ],
-        summary: 'Update an existing exams',
+        summary: 'Get an existing exams',
         description: '',
-        operationId: 'updatePet',
         consumes: [
           'application/json',
           'application/xml'
@@ -118,9 +139,8 @@ export default {
         tags: [
           'exams'
         ],
-        summary: 'Update an existing exams',
+        summary: '/:id',
         description: '',
-        operationId: 'updatePet',
         consumes: [
           'application/json',
           'application/xml'
@@ -144,9 +164,6 @@ export default {
         tags: [
           'questions'
         ],
-        summary: 'Returns exams inventories by status',
-        description: 'Returns a map of status codes to quantities',
-        operationId: 'getInventory',
         produces: [
           'application/json'
         ],
@@ -156,9 +173,6 @@ export default {
         tags: [
           'questions'
         ],
-        summary: 'Place an order for a exams',
-        description: '',
-        operationId: 'placeOrder',
         produces: [
           'application/xml',
           'application/json'
@@ -174,14 +188,14 @@ export default {
             }
           }
         ]
-      },
+      }
+    },
+    '/questions:id': {
       put: {
         tags: [
           'questions'
         ],
-        summary: 'Place an order for a exams',
-        description: '',
-        operationId: 'placeOrder',
+        description: '/:id',
         produces: [
           'application/xml',
           'application/json'
@@ -190,7 +204,6 @@ export default {
           {
             in: 'body',
             name: 'body',
-            description: 'order placed for purchasing the exams',
             required: true,
             schema: {
               $ref: '#/definitions/Questions'
@@ -202,9 +215,7 @@ export default {
         tags: [
           'questions'
         ],
-        summary: 'Delete purchase order by ID',
-        description: 'For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors',
-        operationId: 'deleteOrder',
+        description: '/:id',
         produces: [
           'application/xml',
           'application/json'
@@ -216,9 +227,7 @@ export default {
         tags: [
           'options'
         ],
-        summary: 'Place an order for a exams',
         description: '',
-        operationId: 'placeOrder',
         produces: [
           'application/xml',
           'application/json'
@@ -234,14 +243,14 @@ export default {
             }
           }
         ]
-      },
+      }
+    },
+    '/options/:id': {
       delete: {
         tags: [
           'options'
         ],
-        summary: 'Delete purchase order by ID',
-        description: 'For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors',
-        operationId: 'deleteOrder',
+        description: '/:id',
         produces: [
           'application/xml',
           'application/json'

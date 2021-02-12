@@ -21,6 +21,15 @@ export default class ExamsController {
     return response.json(result)
   }
 
+  public async getById (request: Request, response: Response): Promise<Response> {
+    const examsService = new ExamsService()
+    const { id } = request.params
+
+    const result = await examsService.getById(id)
+
+    return response.json(result)
+  }
+
   public async update (request: Request, response: Response): Promise<Response> {
     const examsService = new ExamsService()
     const { body } = request

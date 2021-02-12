@@ -9,8 +9,10 @@ examsRouter.post('/', examsController.create)
 
 examsRouter.get('/', examsController.getAll)
 
-examsRouter.put('/', examsController.update)
+examsRouter.get('/:id', examsController.getAll)
 
-examsRouter.delete('/', examsController.delete)
+examsRouter.put('/:id', examsController.update)
+
+examsRouter.delete('/:id', examsController.delete)
 
 export default examsRouter

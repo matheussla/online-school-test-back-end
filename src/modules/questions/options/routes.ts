@@ -7,6 +7,6 @@ const optionsController = new OptionsController()
 
 optionsRouter.post('/', optionsController.create)
 
-optionsRouter.delete('/', optionsController.delete)
+optionsRouter.delete('/:id', optionsController.delete)
 
 export default optionsRouter
